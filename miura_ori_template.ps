@@ -1,0 +1,94 @@
+
+
+
+%angle is in degree
+/winkel 15 def
+
+/leftmargin 30 def
+/bottommargin 40 def
+
+/xabstand 70 def
+/yabstand 80 def
+/nproreihe 9 def
+/nprospalte 10 def
+
+/xabstand2 xabstand 2 div def
+/yabstand2 yabstand 2 div def
+
+/tan {dup cos exch sin div} def
+
+/miuraoricell {
+newpath
+moveto
+
+%vertical lines
+currentpoint
+0 yabstand2 neg rlineto
+moveto
+
+currentpoint
+0 yabstand2 rlineto
+moveto
+
+%skew line left
+currentpoint
+xabstand2 neg
+xabstand2 winkel tan div
+rlineto
+moveto
+
+%skew line right
+xabstand2
+xabstand2 winkel tan div
+rlineto
+
+%vertical lines
+currentpoint
+0 yabstand2 neg rlineto
+moveto
+
+currentpoint
+0 yabstand2 rlineto
+moveto
+
+2 setlinewidth
+[3 3] 0.1 setdash
+stroke
+% newpath
+   % 0 0 moveto
+   % 0 1 rlineto
+   % 1 0 rlineto
+   % 0 -1 rlineto
+   % closepath
+   % setrgbcolor
+   % fill
+} def
+
+/ntotal nproreihe nprospalte mul -1 add def
+
+%xabstand yabstand nproreihe nprospalte ntotal pstack
+
+%Anfangswert Inkrement Laufgrenze {Befehlsfolge} for
+0 1 ntotal {
+pstack
+% jetzt ist der aktuelle counter wert auf dem stack...
+dup
+% jetzt zweimal
+
+% berechne x und y gitterindices der jeweiligen zelle...
+nproreihe mod
+exch
+nproreihe idiv
+exch
+
+pstack
+
+xabstand mul
+leftmargin add
+exch
+yabstand mul
+bottommargin add
+miuraoricell
+}for
+
+showpage
