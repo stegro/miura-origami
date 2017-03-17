@@ -23,13 +23,10 @@
 
 
 %angle is in degree
-/winkel 15 def
-
-/leftmargin 30 def
-/bottommargin 40 def
+/winkel 40 def
 
 /xabstand 70 def
-/yabstand 80 def
+/yabstand 50 def
 
 % /nproreihe 9 def
 % /nprospalte 10 def
@@ -38,6 +35,9 @@
 
 /xabstand2 xabstand 2 div def
 /yabstand2 yabstand 2 div def
+
+/leftmargin xabstand2 def
+/bottommargin 0 def
 
 /tan {dup cos exch sin div} def
 
