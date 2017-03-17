@@ -1,12 +1,19 @@
 %!PS-Adobe-3.0 EPSF-3.0
-
-%%%%%%BoundingBox: 0 0 1024 768
+%%BoundingBox: 0 0 1728 864
 %%Pages: 1
 %%Page: Miuraori 1
-
+% From Epilog Zing Manual:
+% maximum engraving are is
+% 24” x 12” (610 x 305 mm)
+% Postscript has 72 points per inch.
+% Thus
+% 24* 72 x 12 * 72 = 1728 x 864
 /inch {72 mul} def
 /cm {25.4 div inch} def
 /mm {cm 10 div} def
+
+/zingwidth {24 inch} def
+/zingheight {12 inch} def
 
 % From Epilog Zing Manual
 %You can vector cut with the laser by setting objects and text to be
@@ -23,8 +30,11 @@
 
 /xabstand 70 def
 /yabstand 80 def
-/nproreihe 9 def
-/nprospalte 10 def
+
+% /nproreihe 9 def
+% /nprospalte 10 def
+/nproreihe {zingwidth xabstand idiv 1 add} def
+/nprospalte {zingheight yabstand idiv 1 add} def
 
 /xabstand2 xabstand 2 div def
 /yabstand2 yabstand 2 div def
