@@ -1,4 +1,18 @@
+%!PS-Adobe-3.0 EPSF-3.0
 
+%%%%%%BoundingBox: 0 0 1024 768
+%%Pages: 1
+%%Page: Miuraori 1
+
+/inch {72 mul} def
+/cm {25.4 div inch} def
+/mm {cm 10 div} def
+
+% From Epilog Zing Manual
+%You can vector cut with the laser by setting objects and text to be
+%unfilled and drawn with a 0.001” (0.025 mm) outline. The thin outline
+%will produce a vector cut.
+/hairline {0.025 mm} def
 
 
 %angle is in degree
@@ -51,7 +65,7 @@ currentpoint
 0 yabstand2 rlineto
 moveto
 
-2 setlinewidth
+hairline setlinewidth
 [3 3] 0.1 setdash
 stroke
 % newpath
@@ -70,7 +84,7 @@ stroke
 
 %Anfangswert Inkrement Laufgrenze {Befehlsfolge} for
 0 1 ntotal {
-pstack
+%pstack
 % jetzt ist der aktuelle counter wert auf dem stack...
 dup
 % jetzt zweimal
@@ -81,7 +95,7 @@ exch
 nproreihe idiv
 exch
 
-pstack
+%pstack
 
 xabstand mul
 leftmargin add
@@ -92,3 +106,6 @@ miuraoricell
 }for
 
 showpage
+
+
+%%EOF
