@@ -8,12 +8,12 @@
 % Postscript has 72 points per inch.
 % Thus
 % 24* 72 x 12 * 72 = 1728 x 864
-/inch {72 mul} def
-/cm {25.4 div inch} def
-/mm {cm 10 div} def
+/inch {72.0 mul} def
+/cm {2.54 div inch} def
+/mm {10.0 div cm} def
 
-/zingwidth {24 inch} def
-/zingheight {12 inch} def
+/zingwidth {24.0 inch} def
+/zingheight {12.0 inch} def
 
 % From Epilog Zing Manual
 %You can vector cut with the laser by setting objects and text to be
@@ -25,13 +25,16 @@
 %angle is in degree
 /winkel 40 def
 
-/xabstand 70 def
-/yabstand 50 def
+/xabstandcm 3 def
+/yabstandcm 2 def
+
+/xabstand {xabstandcm cm} def
+/yabstand {yabstandcm cm} def
 
 % /nproreihe 9 def
 % /nprospalte 10 def
-/nproreihe {zingwidth xabstand idiv 1 add} def
-/nprospalte {zingheight yabstand idiv 1 add} def
+/nproreihe {zingwidth xabstand div floor cvi 1 add} def
+/nprospalte {zingheight yabstand div floor cvi 1 add} def
 
 /xabstand2 xabstand 2 div def
 /yabstand2 yabstand 2 div def
@@ -78,14 +81,6 @@ moveto
 hairline setlinewidth
 [3 3] 0.1 setdash
 stroke
-% newpath
-   % 0 0 moveto
-   % 0 1 rlineto
-   % 1 0 rlineto
-   % 0 -1 rlineto
-   % closepath
-   % setrgbcolor
-   % fill
 } def
 
 /ntotal nproreihe nprospalte mul -1 add def
@@ -114,6 +109,35 @@ yabstand mul
 bottommargin add
 miuraoricell
 }for
+
+% Beschriftung mit den Parametern des Patterns
+/Helvetica 25 selectfont
+5 cm 5 cm moveto
+/winkelstr 4 string def
+winkel winkelstr cvs
+( Winkel ) show
+winkelstr show
+( Grad ) show
+
+5 cm 4 cm moveto
+/xabstandcmstr 3 string def
+/yabstandcmstr 3 string def
+xabstandcm xabstandcmstr cvs
+yabstandcm yabstandcmstr cvs
+( Einheitszelle ) show
+xabstandcmstr show
+( x ) show
+yabstandcmstr show
+( cm ) show
+
+% newpath
+   % 0 0 moveto
+   % 0 1 rlineto
+   % 1 0 rlineto
+   % 0 -1 rlineto
+   % closepath
+   % setrgbcolor
+   % fill
 
 showpage
 
