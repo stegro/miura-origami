@@ -1,0 +1,131 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 1728 864
+%%Pages: 1
+%%Page: Miuraori 1
+% From Epilog Zing Manual:
+% maximum engraving are is
+% 24” x 12” (610 x 305 mm)
+% Postscript has 72 points per inch.
+% Thus
+% 24* 72 x 12 * 72 = 1728 x 864
+/inch {72.0 mul} def
+/cm {2.54 div inch} def
+/mm {10.0 div cm} def
+
+/zingwidth {24.0 inch} def
+/zingheight {12.0 inch} def
+
+% From Epilog Zing Manual
+%You can vector cut with the laser by setting objects and text to be
+%unfilled and drawn with a 0.001” (0.025 mm) outline. The thin outline
+%will produce a vector cut.
+/hairline {0.025 mm} def
+
+
+%angle is in degree
+% /winkel 40 def
+
+% /xabstandcm 3 def
+%/yabstandcm 2 def
+
+% /xabstand {xabstandcm cm} def
+/yabstand 1 cm def
+
+% % /nproreihe 9 def
+% % /nprospalte 10 def
+% /nproreihe {zingwidth xabstand div floor cvi 1 add} def
+% /nprospalte {zingheight yabstand div floor cvi 1 add} def
+
+% /xabstand2 xabstand 2 div def
+% /yabstand2 yabstand 2 div def
+
+% /leftmargin xabstand2 def
+% /bottommargin 0 def
+
+/tan {dup cos exch sin div} def
+
+/linelength {3 cm} def
+
+/dashedline {
+    currentpoint
+newpath
+moveto
+
+/dashstart exch def
+/dashparams exch def
+
+%horizontal dashed line
+linelength 0 rlineto
+
+hairline setlinewidth
+% take dash parameters from stack
+dashparams dashstart setdash
+stroke
+
+% Beschriftung
+/Helvetica 14 selectfont
+/dashstr 4 string def
+/pausestr 4 string def
+pstack
+% dashparams 0 get dashstr cvs
+% dashparams 1 get pausestr cvs
+
+
+% dashstr show
+% pausestr show
+
+} def
+
+
+/pause_array [ 1 1.5 2 3 ] def
+
+/pause_array_len 3 def
+
+/dash_array [ 1 1.5 2 3 ] def
+
+/dash_array_len 3 def
+
+/Helvetica 25 selectfont
+
+/prtstr 7 string def
+/prt-n
+% prints the number on top of the stack
+{ prtstr cvs show } def
+
+% move to start position
+1 cm 1 cm moveto
+
+%Anfangswert Inkrement Laufgrenze {Befehlsfolge} for
+0 1 dash_array_len {
+% jetzt ist der aktuelle counter wert auf dem stack...
+    /idash exch def
+
+0 1 pause_array_len {
+    /ipause exch def
+
+    /dash_len dash_array idash get mm def
+    /pause_len pause_array ipause get mm def
+currentpoint
+[
+% line length
+dash_len
+% pause length
+pause_len
+] 0
+%pstack
+dashedline
+% 0 1 cm rmoveto
+%dash_len prt-n
+%pause_len prt-n
+%( Hallo ) show
+
+moveto
+
+0 yabstand rmoveto
+
+} for
+} for
+
+showpage
+
+%%EOF

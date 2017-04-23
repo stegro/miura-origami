@@ -1,19 +1,39 @@
 %!PS-Adobe-3.0 EPSF-3.0
-%%BoundingBox: 0 0 1728 864
+%%BoundingBox: 0 0 839 595
 %%Pages: 1
 %%Page: Miuraori 1
+
 % From Epilog Zing Manual:
 % maximum engraving are is
 % 24” x 12” (610 x 305 mm)
 % Postscript has 72 points per inch.
 % Thus
 % 24* 72 x 12 * 72 = 1728 x 864
+
+% To have an DIN A4 bounding box: 1 mm corresponds to 1mm / (25.4 mm/inch) * 72(pt/inc)
+% 296mm x 210mm = 839 x 595
+
+
 /inch {72.0 mul} def
 /cm {2.54 div inch} def
 /mm {10.0 div cm} def
 
 /zingwidth {24.0 inch} def
 /zingheight {12.0 inch} def
+
+/pagewidth {210 mm} def
+/pageheight {296 mm} def
+
+%DIN A4 is 297 mm x 200 mm
+/DINA4path {
+    newpath
+    0 0 mm moveto
+    296 mm 0 mm lineto
+    296 mm 210 mm lineto
+    0 mm 210 mm lineto
+    closepath
+} def
+DINA4path clip
 
 % From Epilog Zing Manual
 %You can vector cut with the laser by setting objects and text to be
@@ -44,17 +64,19 @@
 
 /tan {dup cos exch sin div} def
 
+/dashparameters {[1.5 mm 1 mm] 1 mm} def
+
 /miuraoricell {
 newpath
 moveto
 
 %vertical lines
 currentpoint
-0 yabstand2 neg rlineto
+%0 yabstand2 neg rlineto
 moveto
 
 currentpoint
-0 yabstand2 rlineto
+%0 yabstand2 rlineto
 moveto
 
 %skew line left
@@ -71,15 +93,15 @@ rlineto
 
 %vertical lines
 currentpoint
-0 yabstand2 neg rlineto
+%0 yabstand2 neg rlineto
 moveto
 
 currentpoint
-0 yabstand2 rlineto
+%0 yabstand2 rlineto
 moveto
 
 hairline setlinewidth
-[2 mm 2 mm] 1 mm setdash
+dashparameters setdash
 stroke
 } def
 
@@ -87,7 +109,20 @@ stroke
 
 %xabstand yabstand nproreihe nprospalte ntotal pstack
 
+0 1 nproreihe 2 mul {
+%    pstack
+    dup
+    newpath
+    xabstand2 mul 0 moveto
+    % zeichne vertikale strichline über die gesamte seite
+    xabstand2 mul pageheight lineto
+    hairline setlinewidth
+    dashparameters setdash
+    stroke
+} for
+
 %Anfangswert Inkrement Laufgrenze {Befehlsfolge} for
+%0 1 ntotal {
 0 1 ntotal {
 %pstack
 % jetzt ist der aktuelle counter wert auf dem stack...
@@ -112,14 +147,14 @@ miuraoricell
 
 % Beschriftung mit den Parametern des Patterns
 /Helvetica 25 selectfont
-5 cm 5 cm moveto
+5 cm 9 cm moveto
 /winkelstr 4 string def
 winkel winkelstr cvs
 ( Winkel ) show
 winkelstr show
 ( Grad ) show
 
-5 cm 4 cm moveto
+5 cm 8 cm moveto
 /xabstandcmstr 3 string def
 /yabstandcmstr 3 string def
 xabstandcm xabstandcmstr cvs
@@ -129,15 +164,6 @@ xabstandcmstr show
 ( x ) show
 yabstandcmstr show
 ( cm ) show
-
-% newpath
-   % 0 0 moveto
-   % 0 1 rlineto
-   % 1 0 rlineto
-   % 0 -1 rlineto
-   % closepath
-   % setrgbcolor
-   % fill
 
 showpage
 
