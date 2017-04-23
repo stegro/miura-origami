@@ -24,6 +24,8 @@ do
 	    sed -i "s|/xabstandcm .*def|/xabstandcm $cellx def|" "$newfile"
 	    sed -i "s|/yabstandcm .*def|/yabstandcm $celly def|" "$newfile"
 
+	    ps2pdf $newfile ${newfile%ps}pdf
+
 	done
 
     done
